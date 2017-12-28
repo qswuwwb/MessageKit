@@ -301,7 +301,7 @@ extension MessagesCollectionViewFlowLayout {
             messageContainerSize = labelSize(for: text, considering: maxWidth)
             messageContainerSize.width += messageHorizontalInsets
             messageContainerSize.height += messageVerticalInsets
-        case .photo, .video:
+        case .photo, .video, .audio:
             guard let messagesCollectionView = messagesCollectionView else { return .zero }
             guard let layoutDelegate = messagesCollectionView.messagesLayoutDelegate as? MediaMessageLayoutDelegate else { return .zero }
             let width = layoutDelegate.widthForMedia(message: message, at: indexPath, with: maxWidth, in: messagesCollectionView)

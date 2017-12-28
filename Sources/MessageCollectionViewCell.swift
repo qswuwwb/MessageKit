@@ -48,7 +48,7 @@ open class MessageCollectionViewCell<ContentView: UIView>: UICollectionViewCell 
     open var messageContentView: ContentView = {
         let contentView = ContentView()
         contentView.clipsToBounds = true
-//        contentView.isUserInteractionEnabled = true
+        contentView.isUserInteractionEnabled = true
         return contentView
     }()
 

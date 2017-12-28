@@ -212,7 +212,7 @@ extension MessagesViewController: UICollectionViewDataSource {
             }
 
             return cell
-        case .photo, .video:
+        case .photo, .video, .audio:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MediaMessageCell", for: indexPath) as? MediaMessageCell else {
                 fatalError("Unable to dequeue MediaMessageCell")
             }
@@ -314,6 +314,7 @@ extension MessagesViewController {
             //Software keyboard is found
             let bottomInset = keyboardEndFrame.height > messageInputBar.frame.height ? keyboardEndFrame.height : messageInputBar.frame.height
             messagesCollectionView.contentInset.bottom = bottomInset
+            messagesCollectionView.scrollToBottom(animated: true)
         }
         
     }

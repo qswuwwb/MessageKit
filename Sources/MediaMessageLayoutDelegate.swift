@@ -36,8 +36,10 @@ public extension MediaMessageLayoutDelegate {
 
     func widthForMedia(message: MessageType, at indexPath: IndexPath, with maxWidth: CGFloat, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
         switch message.data {
-        case .audio(let duration):
-            return maxWidth * duration / 10
+        case .audio(let duration, _, _):
+            return min(maxWidth, 40 + (maxWidth - 40) * CGFloat(duration) / 10)
+        case .photo:
+            return 100
         default:
             return maxWidth
         }
@@ -45,10 +47,12 @@ public extension MediaMessageLayoutDelegate {
 
     func heightForMedia(message: MessageType, at indexPath: IndexPath, with maxWidth: CGFloat, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
         switch message.data {
-        case .photo(let image), .video(_, let image):
-            let boundingRect = CGRect(origin: .zero, size: CGSize(width: maxWidth, height: .greatestFiniteMagnitude))
-            return AVMakeRect(aspectRatio: image.size, insideRect: boundingRect).height
-        case .audio(let duration):
+//        case .photo(let image), .video(_, let image):
+//            let boundingRect = CGRect(origin: .zero, size: CGSize(width: maxWidth, height: .greatestFiniteMagnitude))
+//            return AVMakeRect(aspectRatio: image.size, insideRect: boundingRect).height
+        case .photo:
+            return 100
+        case .audio:
             return 44
         default:
             return 0

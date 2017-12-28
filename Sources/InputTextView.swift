@@ -23,9 +23,12 @@
  */
 
 import UIKit
+public protocol RecordButtonDelegate: class {
+    func touchUpInside()
+}
 
 open class InputTextView: UITextView {
-
+    open weak var recordDelegate: RecordButtonDelegate?
     // MARK: - Properties
 
     open let placeholderLabel: UILabel = {
@@ -37,7 +40,11 @@ open class InputTextView: UITextView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
+    @objc func touchUpInside() {
+        recordDelegate?.touchUpInside()
+    }
+
     open override var text: String! {
         didSet {
             placeholderLabel.isHidden = !text.isEmpty
@@ -45,6 +52,8 @@ open class InputTextView: UITextView {
     }
 
     private var placeholderLabelConstraintSet: NSLayoutConstraintSet?
+
+    private var recordButtonConstraintSet: NSLayoutConstraintSet?
 
     open var placeholder: String? = "New Message" {
         didSet {
@@ -108,7 +117,6 @@ open class InputTextView: UITextView {
     }
 
     private func addSubviews() {
-
         addSubview(placeholderLabel)
     }
 
@@ -120,6 +128,7 @@ open class InputTextView: UITextView {
             left:   placeholderLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: placeholderLabelInsets.left),
             right:  placeholderLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -placeholderLabelInsets.right)
             ).activate()
+
     }
 
     private func updateConstraintsForPlaceholderLabel() {
